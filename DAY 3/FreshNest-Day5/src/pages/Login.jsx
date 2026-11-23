@@ -1,0 +1,23 @@
+import React, { useState } from 'react';
+import { ArrowRight, ShieldCheck, Clock3, Smartphone, Check } from 'lucide-react';
+import { LogoMark } from '../components/Logo.jsx';
+
+// DEMO LOGIN ONLY: OTP is always 1234. Replace with a real auth service.
+export default function Login({ onVerified }) {
+  const [phone, setPhone] = useState(''); const [otp, setOtp] = useState(''); const [otpSent, setOtpSent] = useState(false); const [checking, setChecking] = useState(false); const [err, setErr] = useState('');
+  const sendOtp = () => { if (!/^[6-9]\d{9}$/.test(phone)) return setErr('Enter a valid 10-digit Indian mobile number.'); setErr(''); setOtpSent(true); setOtp(''); };
+  const verify = () => { if (otp !== '1234') return setErr('Incorrect demo OTP. Please try 1234.'); setChecking(true); setErr(''); setTimeout(() => onVerified(phone), 1100); };
+  return <div className="login-shell"><div className="login-left"><div className="login-brand"><span className="brand-icon"><LogoMark size={30} tone="light" /></span><span>FreshNest<small>FRESHNESS AT YOUR DOORSTEP</small></span></div>
+    <div className="login-copy"><span className="eyebrow">GOOD FOOD. GOOD MOOD.</span><h1>Fresh groceries.<br /><em>Happy homes.</em></h1><p>Farm-fresh goodness and everyday essentials, delivered with care.</p><div className="login-perks"><span><ShieldCheck /> Carefully selected</span><span><Clock3 /> Quick & convenient</span></div></div>
+    <div className="login-foot">From our farm to your home. <span>© 2026 FreshNest</span></div><div className="login-orb orb-one" /><div className="login-orb orb-two" /></div>
+    <div className="login-right"><div className="login-card"><div className="mobile-mark"><LogoMark size={34} /></div>
+      {!otpSent ? <><span className="eyebrow">WELCOME TO FRESHNEST</span><h2>Log in to continue</h2><p className="muted">Enter your mobile number to get started with fresh deliveries.</p>
+        <label className="field-label">MOBILE NUMBER</label><div className="phone-field"><span>🇮🇳 +91</span><input autoFocus inputMode="numeric" maxLength="10" placeholder="Enter 10-digit number" value={phone} onChange={e => setPhone(e.target.value.replace(/\D/g, '').slice(0, 10))} onKeyDown={e => e.key === 'Enter' && sendOtp()} /></div>
+        <button className="primary wide" onClick={sendOtp}>Continue <ArrowRight size={18} /></button><p className="legal">Demo login — no SMS is sent. By continuing you agree to the demo Terms and Privacy Policy.</p></> :
+        <><div className="otp-orbit"><div className={checking ? 'orbit-check' : 'orbit-phone'}>{checking ? <Check size={35} /> : <Smartphone size={35} />}</div><span className="orbit-dot dot-a" /><span className="orbit-dot dot-b" /><span className="orbit-dot dot-c" /></div>
+          <span className="eyebrow">ONE-TIME PASSWORD</span><h2>{checking ? 'Verifying your number' : 'Verify your number'}</h2><p className="muted">Demo OTP for <b>+91 {phone}</b></p>
+          <div className="otp-inputs">{[0, 1, 2, 3].map(i => <input key={i} aria-label={`OTP digit ${i + 1}`} inputMode="numeric" maxLength="1" value={otp[i] || ''} onChange={e => { const v = e.target.value.replace(/\D/g, '').slice(-1); setOtp(old => { const a = old.split(''); a[i] = v; return a.join('').slice(0, 4); }); if (v && i < 3) e.currentTarget.parentElement.children[i + 1].focus(); }} onKeyDown={e => { if (e.key === 'Backspace' && !otp[i] && i > 0) e.currentTarget.parentElement.children[i - 1].focus(); }} />)}</div>
+          <div className="demo-hint">Demo OTP: <b>1234</b></div><button className="primary wide" disabled={checking || otp.length !== 4} onClick={verify}>{checking ? 'Verifying…' : 'Verify & continue'} <ArrowRight size={18} /></button>
+          <button className="text-button" onClick={() => { setOtpSent(false); setOtp(''); setErr(''); }}>Change mobile number</button></>}
+      {err && <p className="error">{err}</p>}</div></div></div>;
+}

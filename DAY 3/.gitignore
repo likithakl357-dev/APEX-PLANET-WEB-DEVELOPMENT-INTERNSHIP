@@ -1,0 +1,8 @@
+node_modules
+dist
+.env
+.DS_Store
+
+# Backend dependencies and secrets
+backend/node_modules/
+backend/.env
