@@ -1,0 +1,104 @@
+:root {
+  color-scheme: light;
+  --cream: #fafcf9;
+  --line: #dce8df;
+  --muted: #53695d;
+  --green: #28634d;
+  --green2: #41785f;
+  --lime: #dff0e3;
+  background: var(--cream);
+  color: #233b31;
+}
+
+.header, .site-footer, .cart-drawer, .address-modal, .login-shell {
+  background: #fff;
+}
+
+.header {
+  box-shadow: 0 3px 18px #3363440b;
+}
+
+.primary, .cart-header, .hero-cta, .float-cart {
+  background: #d6efdf;
+  color: #214d39;
+  border: 1px solid #b5dcca;
+}
+
+.primary:hover:not(:disabled), .cart-header:hover, .hero-cta:hover, .float-cart:hover {
+  background: #c5e7d3;
+  color: #193d2d;
+}
+
+.hero {
+  min-height: 340px;
+  background: radial-gradient(ellipse at 84% 20%, #f8f4dc, transparent 49%),
+    linear-gradient(120deg, #e0f2e6, #f4f8ed);
+  border: 1px solid #dfebdf;
+}
+
+.hero h1 { color: #234f3d; }
+.hero h1 em { color: #3d745b; }
+.hero p { color: #486256; font-size: 1rem; }
+.hero-circle { background: #ffffffb8; }
+
+.promo.p1 { background: #e4f3e9; color: #254b39; }
+.promo.p2 { background: #fff4d8; color: #624b25; }
+.promo.p3 { background: #e8f0f9; color: #334c65; }
+.promo span { color: inherit; }
+.eta-banner { background: #f1f8f3; border-color: var(--line); }
+.site-footer { border-top-color: var(--line); }
+
+.category-tile, .product-card, .panel { border-color: var(--line); }
+.category-tile { color: #264638; }
+.category-tile b, .product-info h3 { font-size: 0.875rem; }
+.category-tile small, .unit, .product-category, .stock-line {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+.product-visual { background: linear-gradient(140deg, #f0f7ef, #fcfaf0); }
+.add-button { color: #28634d; background: #edf8f0; border-color: #a4cdb5; }
+
+.login-left {
+  background: radial-gradient(ellipse at 90% 12%, #fff4d9, transparent 51%),
+    linear-gradient(145deg, #def1e5, #f4f9f3);
+  color: #234f3d;
+}
+.login-brand, .login-copy h1 { color: #234f3d; }
+.login-copy h1 em { color: #3d745b; }
+.login-brand small, .login-copy .eyebrow, .login-copy p,
+.login-perks span, .login-foot { color: #486256; }
+.login-brand .brand-icon { background: #fff; color: var(--green); }
+.login-orb { border-color: #72a88a35; }
+
+.toast {
+  background: #eef8f1;
+  color: #224734;
+  border: 1px solid #bdddc9;
+  max-width: calc(100% - 2rem);
+  white-space: normal;
+}
+:is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 2px solid #357858;
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .hero { min-height: auto; padding: 2rem 1.35rem; }
+  .hero h1 { font-size: clamp(2.5rem, 10vw, 4rem); }
+  .eta-banner { flex-wrap: wrap; }
+  .category-tile { min-width: 0; }
+  .toast { bottom: 4.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.search-submit {
+  background: #d6efdf;
+  color: #214d39;
+}
+.search-submit:hover { background: #c5e7d3; }
