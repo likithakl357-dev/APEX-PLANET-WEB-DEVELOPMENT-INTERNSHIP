@@ -1,0 +1,13 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {distanceKm,travelMinutes} from '../../src/lib/distance.js';
+import {deliveryEstimate} from '../src/deliveryEstimate.js';
+import {calculateOrderTotals} from '../src/utils/pricing.js';
+const a={latitude:13,longitude:80}, b={latitude:13.05,longitude:80};
+const fees={deliveryFee:25,freeDeliveryAbove:499,handling:5,smallCartBelow:99,smallCartFee:20,giftPacking:40};
+const env={DELIVERY_PER_KM:'5',DELIVERY_INCLUDED_KM:'2'};
+test('coordinates, zero and invalid values',()=>{assert.equal(distanceKm(a,a),0);assert.ok(distanceKm(a,b)>5.5&&distanceKm(a,b)<5.6);assert.equal(distanceKm(a,{latitude:null,longitude:0}),null);assert.equal(distanceKm(a,{latitude:91,longitude:80}),null);assert.equal(travelMinutes(0),1);});
+test('distance surcharge and ETA use store coordinates',()=>{const d=deliveryEstimate([{store:b}],a,{eta:15},fees,env);assert.equal(d.deliveryFee,43);assert.equal(d.basis,'straight-line');assert.equal(d.etaMinutes,27);});
+test('central and missing coordinate fallback',()=>{assert.equal(deliveryEstimate([{store:null}],a,{eta:20},fees,env).deliveryFee,25);assert.equal(deliveryEstimate([{store:null}],a,{eta:20},fees,{...env,FULFILMENT_LAT:'13.05',FULFILMENT_LON:'80'}).deliveryFee,43);assert.equal(deliveryEstimate([{store:b}],{}, {eta:20},fees,env).etaMinutes,20);});
+test('free delivery still overrides distance surcharge',()=>{const d=deliveryEstimate([{store:b}],a,{eta:20},fees,env);assert.equal(calculateOrderTotals({items:[{lineTotal:500,taxRate:0}],fees:{...fees,deliveryFee:d.deliveryFee}}).deliveryFee,0);});
+test('multiple fulfilment points use farthest straight-line distance; default rate zero',()=>{const d=deliveryEstimate([{store:a},{store:b}],a,{},fees,{});assert.equal(d.distanceKm,5.56);assert.equal(d.deliveryFee,25);});

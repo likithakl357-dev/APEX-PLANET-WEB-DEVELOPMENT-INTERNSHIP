@@ -1,0 +1,47 @@
+name: FreshNest checks
+on: [push, pull_request]
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm ci --prefix backend
+      - run: npm test
+      - run: npm run build
+      - run: npm --prefix backend test
+      - run: npm run images:check
+
+  database-workflow:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: freshnest_qa
+          POSTGRES_PASSWORD: freshnest_ci_local
+          POSTGRES_DB: freshnest_qa
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U freshnest_qa"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://freshnest_qa:freshnest_ci_local@127.0.0.1:5432/freshnest_qa?schema=public
+      FRESHNEST_QA_CONFIRM: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm ci --prefix backend
+      - run: npm --prefix backend run prisma:generate
+      - run: npm --prefix backend run db:deploy
+      - run: npm --prefix backend run db:seed
+      - run: node backend/scripts/qa-commerce.mjs

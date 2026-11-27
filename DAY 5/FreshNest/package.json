@@ -1,0 +1,31 @@
+{
+  "name": "freshnest",
+  "private": true,
+  "version": "5.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node scripts/run-tests.mjs && node --test scripts/order-receipt.test.mjs",
+    "images:check": "node scripts/check-images.mjs",
+    "images:list": "node scripts/export-product-list.mjs",
+    "geocode-proxy": "node server/geocode-proxy.example.mjs",
+    "backend:install": "npm --prefix backend install",
+    "backend:dev": "npm --prefix backend run dev",
+    "backend:migrate": "npm --prefix backend run prisma:migrate",
+    "backend:seed": "npm --prefix backend run db:seed",
+    "backend:generate": "npm --prefix backend run prisma:generate",
+    "sitemap": "node scripts/sitemap.mjs"
+  },
+  "dependencies": {
+    "leaflet": "1.9.4",
+    "lucide-react": "0.468.0",
+    "pdf-lib": "1.17.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "vite": "7.3.8"
+  }
+}

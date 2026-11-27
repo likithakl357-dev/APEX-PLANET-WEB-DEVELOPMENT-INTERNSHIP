@@ -1,0 +1,11 @@
+CREATE TABLE "Store" ("id" TEXT PRIMARY KEY, "sellerId" TEXT NOT NULL REFERENCES "Seller"("id"), "name" TEXT NOT NULL, "address" TEXT NOT NULL, "pins" TEXT[] NOT NULL, "latitude" DOUBLE PRECISION, "longitude" DOUBLE PRECISION, "radiusKm" DOUBLE PRECISION, "minOrder" INTEGER NOT NULL DEFAULT 0 CHECK ("minOrder">=0), "commissionBps" INTEGER NOT NULL DEFAULT 0 CHECK ("commissionBps" BETWEEN 0 AND 10000), "active" BOOLEAN NOT NULL DEFAULT false);
+CREATE INDEX "Store_sellerId_idx" ON "Store"("sellerId");
+CREATE TABLE "StoreListing" ("id" TEXT PRIMARY KEY, "storeId" TEXT NOT NULL REFERENCES "Store"("id"), "productId" TEXT NOT NULL REFERENCES "Product"("id"), "price" INTEGER NOT NULL CHECK ("price">0), "stock" INTEGER NOT NULL CHECK ("stock">=0), "active" BOOLEAN NOT NULL DEFAULT true);
+CREATE UNIQUE INDEX "StoreListing_storeId_productId_key" ON "StoreListing"("storeId","productId");
+CREATE INDEX "StoreListing_productId_idx" ON "StoreListing"("productId");
+CREATE TABLE "StoreStockEvent" ("id" TEXT PRIMARY KEY,"listingId" TEXT NOT NULL REFERENCES "StoreListing"("id"),"delta" INTEGER NOT NULL,"reason" TEXT NOT NULL,"reference" TEXT,"createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE INDEX "StoreStockEvent_listingId_createdAt_idx" ON "StoreStockEvent"("listingId","createdAt");
+CREATE TABLE "SellerOrder" ("id" TEXT PRIMARY KEY, "orderId" TEXT NOT NULL REFERENCES "Order"("id") ON DELETE CASCADE,"storeId" TEXT NOT NULL REFERENCES "Store"("id"),"status" TEXT NOT NULL DEFAULT 'PENDING',"subtotal" INTEGER NOT NULL,"discount" INTEGER NOT NULL,"tax" INTEGER NOT NULL,"platformFees" INTEGER NOT NULL,"commission" INTEGER NOT NULL,"net" INTEGER NOT NULL,"createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE UNIQUE INDEX "SellerOrder_orderId_storeId_key" ON "SellerOrder"("orderId","storeId");
+CREATE INDEX "SellerOrder_storeId_createdAt_idx" ON "SellerOrder"("storeId","createdAt");
+ALTER TABLE "OrderItem" ADD COLUMN "sellerOrderId" TEXT REFERENCES "SellerOrder"("id") ON DELETE SET NULL, ADD COLUMN "storeListingId" TEXT REFERENCES "StoreListing"("id") ON DELETE RESTRICT;

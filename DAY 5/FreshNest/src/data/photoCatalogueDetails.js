@@ -1,0 +1,56 @@
+const catalogueLabels = [
+  'FreshNest Farm|FreshNest Farm|FreshNest Farm|FreshNest Farm|FreshNest Farm|FreshNest Farm|FreshNest Farm|FreshNest Farm|FreshNest Farm|FreshNest Farm|FreshNest Farm|FreshNest Farm|FreshNest Farm|FreshNest Farm|FreshNest Farm|FreshNest Farm|FreshNest Farm|FreshNest Farm|FreshNest Farm|FreshNest Farm',
+  'Amul|Mother Dairy|Milky Mist|Epigamia|Amul|Amul|Milky Mist|Milky Mist|Mother Dairy|Amul|Farm Made|Harvest Gold|Baker’s Loaf|Harvest Gold|Harvest Gold|Modern|Freshey’s|Fresh Rush||||',
+  'Pillsbury|Organic India|Daawat||24 Mantra Organic|Fortune|Tata Sampann|Tata Sampann|24 Mantra Organic|Tata Sampann|24 Mantra Organic|24 Mantra Organic|Tata Sampann|Tata Sampann|Aashirvaad||Fortune||Organic India|Purely',
+  'Saffola|Dhara|Fortune|Figaro|Royal Gold|Patanjali|Mother Dairy|Everest|MDH|Everest|Everest||Tata Sampann|Everest|Tata Sampann|MDH|MDH|Sake|Tata Sampann|Tata Salt',
+  'Balaji Wafers|Bikaji||Too Yumm!|Bikaji|||Aurenzo|Haldiram’s|Haldiram’s|Balaji Wafers|Balaji Wafers|Bikaji|SNN|Baska|Yogabar|Too Yumm!|Too Yumm!||Yumflick',
+  'Hershey’s|Mother Dairy|MTR|Cadbury|Haldiram’s|Haldiram’s|Cadbury|Hershey’s||Dukes||MTR|Haldiram’s||||||Hershey’s|',
+  'Tropicana|Real|Real|Tropicana|Tender Coco|Sprite|Coca-Cola|Sprite|Schweppes|Red Bull|Nescafé||Kinley|Aquafina|||Swing|Swing|Swing|',
+  'Kellogg’s|Kellogg’s|Bagrry’s|Bagrry’s|Dr. Oetker FunFoods|Jus Amazin|Del Monte|Kissan|Saffola|Briovo|Del Monte|Del Monte|Del Monte|Dr. Oetker FunFoods|Veeba|Veeba||| |Puramate',
+  'Top Ramen|Nissin|Del Monte||ITC Master Chef|McCain||McCain|Godrej Yummiez|||Gits|MTR||Master Cook||Sunfeast YiPPee!|Prasuma|ITC Master Chef|',
+  '|Britannia|Modern|Britannia|Britannia|||Karamat||Cadbury|Britannia|Britannia|Harvest Gold|Britannia|Harvest Gold|||||',
+  'Octavius|Society Tea|Red Label|Golden Tips|Nescafé|Nescafé|BRU|Sattvic Foods|Boost|Orgain|Sweetmate|Tata Tea|Red Label|Red Label|BRU|Nescafé||Fresh Start|MTR|Cadbury Bournvita',
+  'Tata Sampann|Tata Sampann|Nutraj|Tata Sampann|Farmley|Farmley||Farmley|Happilo|Farmley|Farmley|Nutraj|||Arome|Farmley||Farmley|Bikano|Nutraj',
+  'Cadbury|KitKat|Hershey’s|Nestlé|Hershey’s||Amul|||Cadbury||||Alpenliebe|Hershey’s|Sour Punk||Reese’s|Hershey’s|',
+  'Clinic Plus|Sunsilk|Nivea|Closeup|Colgate|Colgate|Lakmé|Nivea|Lakmé|Himalaya|Nivea Men|Gillette||Bare Anatomy|Dove||Gillette|Stayfree|Nivea|Johnson’s',
+  'Pears|Himalaya|Nivea|||Pears|Chemist at Play|Himalaya|||Nivea|Dettol|Nivea|Savlon||||||Pears',
+  'Pril|Vim|Ariel|Comfort|Lizol|G-Look||Lizol|Gala|Presto!||Gala||Harpic|Pitambari|||Scotch-Brite|Godrej aer|Scotch-Brite',
+  'Perfetto|Home Fresh|||Milton|Milton|||||Polycab||Mistique|||Gala||Milton||',
+  'Huggies|Mamaearth|Himalaya|Mother Sparsh|Johnson’s|Mamaearth|Johnson’s|Johnson’s|Johnson’s||Easum|Himalaya|Babyhug||Mee Mee|Mamaearth||Pigeon||',
+  'Drools|Me-O|Pedigree|Drools|Whiskas|Pets Empire|Drools|Drools|Drools|Drools|Pets Empire|Pedigree|Whiskas||| |Virbac|||Absolut Pet',
+  'Cycle|Rajnigandha||||||||||||Gits||Dabur|Mangaldeep||Homelites|'
+];
+
+const corrections = {
+  '1-6': ['Cheese Slices','5 slices (100 g)'], '1-7':['Cheddar Cheese','200 g'], '1-9':['Masala Buttermilk','3 packs'], '1-10':['Free-Range Eggs'], '1-18':['Lassi','6 bottles','Mother Dairy'], '1-19':['High-Protein Milk',null,'Amul'],
+  '2-6':['Unpolished Masoor Dal','500 g'], '2-9':['Kabuli Chana','500 g'], '2-10':['Organic Peanuts'], '2-12':['Unpolished Toor Dal'], '2-16':['Unpolished Urad Dal'], '2-18':['Quinoa','500 g'],
+  '3-0':['Saffola Gold Edible Oil Blend'], '3-1':['Filtered Groundnut Oil','2 pouches'], '3-6':['Gir Cow Ghee'], '3-8':['Lal Mirch Powder','500 g'], '3-10':['Cumin Powder'], '3-11':['Mustard Seeds','2 pouches'], '3-15':['Chicken Biryani Masala','50 g'], '3-16':['Black Pepper Powder'], '3-18':['Whole Cassia','50 g'],
+  '4-3':['Karare Munchy Masala'], '4-10':['Healthy Bites Khakhra'], '4-11':['Masala Sev Murmura'], '4-13':['Popcorn Kernels'], '4-15':['Choco Peanut Butter Protein Minis','480 g'], '4-16':['Too Yumm! Chips'], '4-17':['Too Yumm! Masala Chips'],
+  '5-0':['Hershey’s Favorites Snack Size','32 pieces'], '5-1':['Choco Brownie Ice Cream'], '5-2':['Gulab Jamun Dessert Mix','1 kg'], '5-3':['Cadbury Celebrations Chocolate Assortment'], '5-6':['Bournville Fruit & Nut Dark Chocolate'], '5-7':['Milk Chocolate with Whole Almonds','36 bars'], '5-9':['Choco Roll Wafers','2 jars'], '5-11':['Instant Vada Mix'], '5-12':['Bikaneri Burfi'], '5-18':['Cocoa Almond Spread'],
+  '6-5':['Sprite Lemon-Lime Soft Drink','500 ml'], '6-6':['Coca-Cola Original Taste','6 cans'], '6-7':['Sprite Lemon-Lime Soft Drink Multipack'], '6-8':['Schweppes Ginger Ale','2 cans'], '6-9':['Red Bull Energy Drink','6 cans'], '6-12':['Kinley Soda','1.25 L'], '6-16':['Litchi Fruit Drink'], '6-17':['Guava Fruit Drink'], '6-18':['Pomegranate Fruit Drink'],
+  '7-1':['Froot Loops and Chocos Cereal Combo','2 boxes'], '7-6':['Mixed Fruit Drink Multipack'], '7-9':['Maple-Flavoured Syrup'], '7-17':['Classic Pancake Mix','2 packs'],
+  '8-2':['Italian Pasta Sauce'], '8-4':['Vegetable Biryani Cooking Paste'], '8-5':['Frozen Green Peas','500 g'], '8-8':['Frozen Vegetable Snack Combo'], '8-9':['Frozen Spring Rolls','10 pieces'], '8-11':['Rice Idli Instant Mix'], '8-12':['Protein Dosa Ready Mix'], '8-14':['Instant Upma','150 g'], '8-16':['YiPPee! Suji Pasta','2 packs'], '8-19':['Pizza Base','200 g'],
+  '9-4':['Treat Chocolate Croissant'], '9-8':['Chocolate Celebration Cake'], '9-9':['Cadbury Chocolate Layered Cake'], '9-10':['Vanilla Slice Cake'], '9-12':['Suji Rusk'],
+  '10-4':['Nescafé 2-in-1 Instant Coffee','30 × 11.7 g'], '10-5':['Nescafé Classic Instant Coffee'], '10-7':['Cacao Powder'], '10-8':['Boost Nutrition Drink Mix','200 g'], '10-9':['Chocolate Plant Protein Shake','12 cartons'], '10-11':['Rejuvenate Herbal Infusion','25 tea bags'], '10-12':['Red Label Tea'], '10-14':['BRU Instant Coffee','3 packs'], '10-15':['Nescafé Classic Instant Coffee'],
+  '11-8':['Shelled Pumpkin Seeds','2 pouches'], '11-17':['Mixed Nuts and Party Mix Combo','2 jars'], '11-18':['Mixed Dry Fruits Trail Mix','2 × 75 g'], '11-19':['Pumpkin Seeds'],
+  '12-1':['KitKat Brownie Dessert Wafer'], '12-4':['Exotic Dark Turkish Hazelnut Chocolate'], '12-5':['Chocolate Truffle Cake'], '12-6':['Amul Chocominis'], '12-8':['Dairy Milk Mint Crisp',null,'Cadbury'], '12-9':['Dairy Milk Lolly'], '12-12':['Alpenliebe Gold Caramel Candy',null,'Alpenliebe'], '12-13':['Hershey’s Choco Tubes',null,'Hershey’s'], '12-14':['Sour Punk Strawberry Candy Sticks',null,'Sour Punk'], '12-15':['Chocolate Candies',null,''], '12-16':['Reese’s Peanut Butter Cups',null,'Reese’s'], '12-17':['Hershey’s Chocolate Wafer',null,'Hershey’s'], '12-18':['Coconut Shots Candy',null,''], '12-19':['Amul Assorted Chocolates',null,'Amul'],
+  '13-0':['Clinic Plus Shampoo'], '13-1':['Sunsilk Conditioner'], '13-2':['Frangipani & Oil Shower Gel','250 ml'], '13-4':['Colgate Bamboo Toothbrush','4 toothbrushes shown'], '13-6':['Perfect Radiance Face Wash','2 tubes shown'], '13-7':['Nivea Creme Moisturizer','250 ml'], '13-8':['Sun Expert SPF 50 Sunscreen'], '13-9':['Strawberry Shine Serum Lip Balm','4.5 g'], '13-10':['Fresh Active Deodorant'], '13-11':['Gillette Body 2-in-1 Shave Gel'], '13-14':['Intense Repair Shampoo and Conditioner','2 products shown'], '13-15':['Twin-Blade Razor'], '13-16':['Fusion5 Cartridges and Shaving Foam','4 cartridges + 196 g foam'],
+  '14-0':['Pears Pure & Gentle Bathing Bars','3 bars'], '14-1':['Himalaya Gentle Baby Wash'], '14-2':['Nivea Body Lotion'], '14-5':['Pears Shower Gel','2 bottles'], '14-6':['Urea & AHA Foot Cream','50 g'], '14-11':['Dettol Hydrate Hand Wash Refill','3 pouches shown'], '14-12':['Cocoa Butter Deep Nourishing Serum'], '14-19':['Pears Pure & Gentle Body Wash Refill'],
+  '15-1':['Vim Dishwash Bar','500 g'], '15-2':['Ariel Machine Expert Detergent','1 kg'], '15-5':['G-Look Toilet Cleaner Tablets','5 packs'], '15-7':['Lizol Disinfectant Surface Cleaner'], '15-8':['Gala Scrub Pads','5 pads'], '15-12':['Maxx Toilet Cleaner'], '15-13':['Harpic White & Shine Bleach Cleaner'], '15-17':['Scotch-Brite Heavy Duty Gloves, Medium'], '15-18':['Godrej aer Air Freshener Assortment','4 variants shown'], '15-19':['Scotch-Brite Handheld Scrubber'],
+  '16-0':['Perfetto Kitchen Towel Rolls'], '16-5':['Stainless Steel Tiffin Box'], '16-6':['Printed Food Packing Sheets Roll','1 kg'], '16-8':['Safety Matchbox','1 box'], '16-9':['VT 250 Inverter Battery','1 unit'], '16-10':['Polycab LED Bulb','1 bulb'], '16-11':['Stainless Steel Pedal Bin','1 bin'], '16-13':['Reusable Tote and Pouch Set'], '16-15':['Steel Scrubber Multipack','3 packs'], '16-16':['Clear Storage Jar','1 jar'], '16-17':['Milton Round Lunch Containers with Carry Case','2 × 340 ml'], '16-18':['Serving Spoons','2 spoons shown'],
+  '17-0':['Huggies Natural Soft Overnight Pants, XL','2 packs shown'], '17-3':['Milky Soft Baby Shampoo'], '17-4':['Johnson’s Baby Soap','50 g'], '17-5':['Mamaearth Baby Shampoo'], '17-6':['Johnson’s Baby Oil and Hair Oil','2 bottles shown'], '17-7':['Johnson’s Baby Cream','2 tubes shown'], '17-9':['Stainless Steel Feeding Bottle','1 bottle'], '17-10':['Easum Moong Dal and Rice Baby Cereal','400 g'], '17-11':['Himalaya Diaper Rash Cream'], '17-14':['Baby Diaper Pants, Large','7 pants'], '17-15':['Mamaearth Baby Laundry Detergent','1000 ml'],
+  '18-0':['Drools Adult Dog Food'], '18-1':['Me-O Adult Seafood Cat Food'], '18-2':['Pedigree Puppy Chicken, Liver and Vegetable Food'], '18-4':['Whiskas Ocean Fish Cat Food'], '18-6':['Drools Cat Litter','2 packs shown'], '18-7':['Drools Tick & Flea Shampoo with Brush'], '18-8':['Drools Creamy Cat Treats'], '18-9':['Drools Adult Dog Food Chunks in Gravy'], '18-10':['Stainless Steel Pet Bowls','3 bowls shown'], '18-11':['Pedigree Adult Mini Dog Food','2 packs shown'], '18-12':['Whiskas Tuna in Jelly Adult Cat Food'], '18-14':['Sinking Goldfish Pellets'], '18-16':['Tick and Flea Shampoo','200 ml'],
+  '19-0':['Cycle Rose and Jasmine Agarbatti','2 packs shown'], '19-3':['Cotton Wicks'], '19-6':['Jar of Ghee'], '19-7':['Scented Incense Sticks'], '19-8':['Fresh Turmeric Root'], '19-9':['Sandalwood Powder'], '19-10':['Cotton Wicks Pack'], '19-11':['White Rangoli Powder'], '19-12':['Pooja Thali Set','1 set'], '19-13':['Bel Murabba',null,''], '19-14':['Pooja Product Twin Pack',null,''], '19-15':['Rose Water','2 bottles shown'], '19-16':['Mangaldeep Sambrani'], '19-18':['Homelites Matchbox Value Pack']
+};
+
+export function applyPhotoCatalogueDetails(product) {
+  const [category, index] = product.id.split('-').map(Number);
+  const [name = product.name, size, brandOverride] = corrections[product.id] || [];
+  const brand = (brandOverride ?? catalogueLabels[category]?.split('|')[index]?.trim()) || 'Brand not specified';
+  const confirmedSize = size && !size.endsWith('shown') ? size : null;
+  const description = [
+    brand === 'Brand not specified' || name.toLowerCase().includes(brand.toLowerCase()) ? name : name + ' by ' + brand,
+    confirmedSize ? 'Pack size ' + confirmedSize : size ? 'Photo shows ' + size.replace(/ shown$/, '') : 'Pack size unspecified'
+  ].join('. ') + '.';
+  return { ...product, name, brand, unit: confirmedSize || 'Pack size unspecified', desc: description };
+}

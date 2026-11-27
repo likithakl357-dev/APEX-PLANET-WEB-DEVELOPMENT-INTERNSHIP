@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>FreshNest</title>
+  <rect width="64" height="64" rx="15" fill="#355b35"/>
+  <g transform="translate(6 6.5) scale(.8125)">
+    <path d="M32 31C30.5 18 36 9 51 6c1.6 13.5-4.5 23.5-19 25z" fill="#cfe3a8"/>
+    <path d="M32 31C34 20.5 28.5 12 15 10c-1.4 11.5 3.7 19.8 17 21z" fill="#fffdf7"/>
+    <path d="M6 33.5h52a2.6 2.6 0 0 1 0 5.2H6a2.6 2.6 0 0 1 0-5.2z" fill="#fffdf7"/>
+    <path d="M9.5 41h45l-4.2 11.4A6 6 0 0 1 44.7 56H19.3a6 6 0 0 1-5.6-3.6z" fill="#fffdf7"/>
+    <g fill="none" stroke="#355b35" stroke-width="1.7" stroke-linecap="round" opacity=".75">
+      <path d="M12.6 46.6h38.8"/><path d="M16.2 51.6h31.6"/><path d="M24 41.6v14M32 41.6v14M40 41.6v14" opacity=".6"/>
+    </g>
+  </g>
+</svg>
